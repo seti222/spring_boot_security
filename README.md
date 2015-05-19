@@ -9,7 +9,8 @@ Example Spring Boot Security
 * URL-based security
 * Method-level security
 
-원본은 다음과 다음 것을 참조하여 수정하였습니다. 
+jdk 1.8로 개발된 것아래의 프로젝트를 JDK 7으로 변형하고 수정하는 것이 목적.
+
 See the [Spring Boot Security Application](http://kielczewski.eu/2014/12/spring-boot-security-application/) article for
 commentary.
 
