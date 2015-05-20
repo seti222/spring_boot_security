@@ -1,13 +1,14 @@
-package eu.kielczewski.example.domain.validator;
+package pe.seti222.domain.validator;
 
-import eu.kielczewski.example.domain.UserCreateForm;
-import eu.kielczewski.example.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
+import pe.seti222.domain.UserCreateForm;
+import pe.seti222.service.user.UserService;
 
 @Component
 public class UserCreateFormValidator implements Validator {

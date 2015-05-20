@@ -1,8 +1,8 @@
-package eu.kielczewski.example.controller;
+package pe.seti222.controller;
 
 import eu.kielczewski.example.domain.UserCreateForm;
-import eu.kielczewski.example.domain.validator.UserCreateFormValidator;
 import eu.kielczewski.example.service.user.UserService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import pe.seti222.domain.validator.UserCreateFormValidator;
+
 import javax.validation.Valid;
+
 import java.util.NoSuchElementException;
 
 @Controller

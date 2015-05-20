@@ -1,4 +1,4 @@
-package eu.kielczewski.example.service.currentuser;
+package pe.seti222.service.currentuser;
 
 import eu.kielczewski.example.domain.CurrentUser;
 import eu.kielczewski.example.domain.User;

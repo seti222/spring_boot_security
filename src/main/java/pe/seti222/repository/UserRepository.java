@@ -1,7 +1,8 @@
-package eu.kielczewski.example.repository;
+package pe.seti222.repository;
 
-import eu.kielczewski.example.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import pe.seti222.domain.User;
 
 import java.util.Optional;
 

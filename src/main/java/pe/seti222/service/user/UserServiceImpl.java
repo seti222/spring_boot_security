@@ -1,14 +1,15 @@
-package eu.kielczewski.example.service.user;
+package pe.seti222.service.user;
 
-import eu.kielczewski.example.domain.User;
-import eu.kielczewski.example.domain.UserCreateForm;
-import eu.kielczewski.example.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import pe.seti222.domain.User;
+import pe.seti222.domain.UserCreateForm;
+import pe.seti222.repository.UserRepository;
 
 import java.util.Collection;
 import java.util.Optional;

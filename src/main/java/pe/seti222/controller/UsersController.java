@@ -1,12 +1,13 @@
-package eu.kielczewski.example.controller;
+package pe.seti222.controller;
 
-import eu.kielczewski.example.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import pe.seti222.service.user.UserService;
 
 @Controller
 public class UsersController {

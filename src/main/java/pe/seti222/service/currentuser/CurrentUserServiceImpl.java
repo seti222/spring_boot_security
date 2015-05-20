@@ -1,10 +1,11 @@
-package eu.kielczewski.example.service.currentuser;
+package pe.seti222.service.currentuser;
 
-import eu.kielczewski.example.domain.CurrentUser;
-import eu.kielczewski.example.domain.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import pe.seti222.domain.CurrentUser;
+import pe.seti222.domain.Role;
 
 @Service
 public class CurrentUserServiceImpl implements CurrentUserService {

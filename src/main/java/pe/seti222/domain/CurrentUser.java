@@ -1,4 +1,4 @@
-package eu.kielczewski.example.domain;
+package pe.seti222.domain;
 
 import org.springframework.security.core.authority.AuthorityUtils;
 
