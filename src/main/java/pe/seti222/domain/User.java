@@ -11,8 +11,8 @@ public class User {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
+    @Column(name = "userId", nullable = false, unique = true)
+    private String userId;
 
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
@@ -25,15 +25,15 @@ public class User {
         return id;
     }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getUserId() {
+		return userId;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    public String getPasswordHash() {
+	public String getPasswordHash() {
         return passwordHash;
     }
 
@@ -53,7 +53,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", email='" + email.replaceFirst("@.*", "@***") +
+                ", userId='" + userId+
                 ", passwordHash='" + passwordHash.substring(0, 10) +
                 ", role=" + role +
                 '}';

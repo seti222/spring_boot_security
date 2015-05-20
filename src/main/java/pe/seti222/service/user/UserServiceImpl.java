@@ -1,5 +1,7 @@
 package pe.seti222.service.user;
 
+import java.util.Collection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,6 @@ import org.springframework.stereotype.Service;
 import pe.seti222.domain.User;
 import pe.seti222.domain.UserCreateForm;
 import pe.seti222.repository.UserRepository;
-
-import java.util.Collection;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -26,15 +25,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getUserById(long id) {
+    public User getUserById(long id) {
         LOGGER.debug("Getting user={}", id);
-        return Optional.ofNullable(userRepository.findOne(id));
+        return userRepository.findOne(id);
     }
 
     @Override
-    public Optional<User> getUserByEmail(String email) {
-        LOGGER.debug("Getting user by email={}", email.replaceFirst("@.*", "@***"));
-        return userRepository.findOneByEmail(email);
+    public User getUserByUserId(String userId) {
+        LOGGER.debug("Getting user by email={}", userId.replaceFirst("@.*", "@***"));
+        return userRepository.findOneByUserId(userId);
     }
 
     @Override
@@ -46,7 +45,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(UserCreateForm form) {
         User user = new User();
-        user.setEmail(form.getEmail());
+        user.setUserId(form.getUserId());
         user.setPasswordHash(new BCryptPasswordEncoder().encode(form.getPassword()));
         user.setRole(form.getRole());
         return userRepository.save(user);
