@@ -31,7 +31,7 @@ public class UserCreateFormValidator implements Validator {
         LOGGER.debug("Validating {}", target);
         UserCreateForm form = (UserCreateForm) target;
         validatePasswords(errors, form);
-        //validateEmail(errors, form);
+        validateUserId(errors, form);
     }
 
     private void validatePasswords(Errors errors, UserCreateForm form) {
@@ -39,11 +39,11 @@ public class UserCreateFormValidator implements Validator {
             errors.reject("password.no_match", "Passwords do not match");
         }
     }
-/*
-    private void validateEmail(Errors errors, UserCreateForm form) {
-        if (userService.getUserByEmail(form.getEmail()).isPresent()) {
-            errors.reject("email.exists", "User with this email already exists");
+
+    private void validateUserId(Errors errors, UserCreateForm form) {
+        if (userService.getUserByUserId(form.getUserId())  != null) {
+            errors.reject("userId.exists", "User with this email already exists");
         }
     }
-*/
+
 }

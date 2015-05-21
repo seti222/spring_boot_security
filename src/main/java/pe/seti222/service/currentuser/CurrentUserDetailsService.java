@@ -28,7 +28,11 @@ public class CurrentUserDetailsService implements UserDetailsService {
     public CurrentUser loadUserByUsername(String userId) throws UsernameNotFoundException {
         LOGGER.debug("Authenticating user with userId={}", userId);
         //User user = userService.(userId).orElseThrow(() -> new UsernameNotFoundException(String.format("User with userId=%s was not found", userId)));
-        return null;//new CurrentUser(user);
+        User user = userService.getUserByUserId(userId); 
+        //TODO user 의  ext_auth 값에 따라서 패스워드에 대한 인증을 추가적으로 재능 스스로 https를 통해서 질의한다.
+        //https로 재능 서버로 부터 패스워드 정보를 받아 user에 셋팅하다록 한다. 
+        return new CurrentUser(user);
     }
+    
 
 }

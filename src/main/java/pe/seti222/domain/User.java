@@ -14,6 +14,9 @@ public class User {
     @Column(name = "userId", nullable = false, unique = true)
     private String userId;
 
+    @Column(name = "ext_auth", nullable = false)
+    private ExtAuth extAuth;
+    
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
@@ -49,7 +52,16 @@ public class User {
         this.role = role;
     }
 
-    @Override
+    
+    public ExtAuth getExtAuth() {
+		return extAuth;
+	}
+
+	public void setExtAuth(ExtAuth extAuth) {
+		this.extAuth = extAuth;
+	}
+
+	@Override
     public String toString() {
         return "User{" +
                 "id=" + id +

@@ -17,6 +17,9 @@ public class UserCreateForm {
 
     @NotNull
     private Role role = Role.USER;
+    
+    @NotNull
+    private ExtAuth extAuth = ExtAuth.SITE;
 
     public String getUserId() {
         return this.userId;
@@ -50,7 +53,16 @@ public class UserCreateForm {
         this.role = role;
     }
 
-    @Override
+    
+    public ExtAuth getExtAuth() {
+		return extAuth;
+	}
+
+	public void setExtAuth(ExtAuth extAuth) {
+		this.extAuth = extAuth;
+	}
+
+	@Override
     public String toString() {
         return "UserCreateForm{" +
                 "userId='" + userId+ '\'' +
