@@ -32,14 +32,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUserId(String userId) {
-        LOGGER.debug("Getting user by email={}", userId.replaceFirst("@.*", "@***"));
+        LOGGER.debug("Getting user by userId={}", userId);
         return userRepository.findOneByUserId(userId);
     }
 
     @Override
     public Collection<User> getAllUsers() {
         LOGGER.debug("Getting all users");
-        return userRepository.findAll(new Sort("email"));
+        return userRepository.findAll(new Sort("userId"));
     }
 
     @Override

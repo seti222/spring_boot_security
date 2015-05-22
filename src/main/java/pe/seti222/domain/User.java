@@ -15,7 +15,8 @@ public class User {
     private String userId;
 
     @Column(name = "ext_auth", nullable = false)
-    private ExtAuth extAuth;
+    @Enumerated(EnumType.STRING)
+    private ExtAuth extAuth = ExtAuth.SITE;
     
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;

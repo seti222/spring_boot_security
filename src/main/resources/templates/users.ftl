@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="users" type="java.util.List<eu.kielczewski.example.domain.User>" -->
+<#-- @ftlvariable name="users" type="java.util.List<pe.seti222.domain.User>" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,14 +18,14 @@
 <table>
     <thead>
     <tr>
-        <th>E-mail</th>
+        <th>User Id</th>
         <th>Role</th>
     </tr>
     </thead>
     <tbody>
     <#list users as user>
     <tr>
-        <td><a href="/user/${user.id}">${user.email}</a></td>
+        <td><a href="/user/${user.id}">${user.userId}</a></td>
         <td>${user.role}</td>
     </tr>
     </#list>
