@@ -1,5 +1,4 @@
 <#-- @ftlvariable name="_csrf" type="org.springframework.security.web.csrf.CsrfToken" -->
-<#-- @ftlvariable name="error" type="java.util.Optional<String>" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,8 +20,8 @@
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
     <div>
-        <label for="email">Email address</label>
-        <input type="email" name="email" id="email" required autofocus/>
+        <label for="userId">User Id</label>
+        <input type="text" name="userId" id="userId" required autofocus/>
     </div>
     <div>
         <label for="password">Password</label>
@@ -35,7 +34,7 @@
     <button type="submit">Sign in</button>
 </form>
 
-<#if error.isPresent()>
+<#if error?? >
 <p>The email or password you have entered is invalid, try again.</p>
 </#if>
 </body>

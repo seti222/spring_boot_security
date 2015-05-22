@@ -3,7 +3,7 @@ package pe.seti222.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "User")
 public class User {
 
     @Id
@@ -11,7 +11,7 @@ public class User {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(name = "userId", nullable = false, unique = true)
+    @Column(name = "userid", nullable = false, unique = true)
     private String userId;
 
     @Column(name = "ext_auth", nullable = false)

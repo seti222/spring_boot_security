@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="user" type="eu.kielczewski.example.domain.User" -->
+<#-- @ftlvariable name="user" type="pe.seti222.domain.User" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +14,7 @@
 
 <h1>User details</h1>
 
-<p>E-mail: ${user.email}</p>
+<p>userId: ${user.userId}</p>
 
 <p>Role: ${user.role}</p>
 </body>
