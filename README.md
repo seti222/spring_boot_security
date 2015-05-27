@@ -22,4 +22,8 @@ Requirements
 Quick start
 -----------
 1. `mvn spring-boot:run`
-3. Point your browser to [http://localhost:8080/](http://localhost:8080/)
+2. Point your browser to [http://localhost:8080/](http://localhost:8080/)
+
+Issue List
+-----------
+- [ ] 관리자 계정이 없는 경우 자동생성기능 [#2](/../../issues/2) (2015-05-27)
