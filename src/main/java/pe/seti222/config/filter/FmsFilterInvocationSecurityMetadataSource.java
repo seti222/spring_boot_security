@@ -48,9 +48,9 @@ public class FmsFilterInvocationSecurityMetadataSource implements FilterInvocati
 
         String[] roles;
         if(permission == null) {
-            roles = new String[] { "ROLE_ADMIN" };
+            roles = new String[] { "ADMIN" };
         } else {
-            roles = new String[] { "ROLE_ADMIN", permission.getName() };
+            roles = new String[] { "ADMIN", permission.getName() };
         }
         return SecurityConfig.createList(roles);
     }
