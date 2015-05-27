@@ -3,6 +3,8 @@ package pe.seti222.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +23,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 
 import pe.seti222.config.filter.DBAccessDecisionVoter;
 import pe.seti222.config.filter.FmsFilterInvocationSecurityMetadataSource;
+import pe.seti222.service.currentuser.CurrentUserDetailsService;
 import pe.seti222.service.menu.MenuRoleService;
 
 @Configuration
@@ -28,6 +31,9 @@ import pe.seti222.service.menu.MenuRoleService;
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfig.class);
+
+	
 	@Autowired
 	private UserDetailsService userDetailsService;
 
@@ -36,14 +42,17 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/public/**").permitAll()
-				.antMatchers("/users/**").hasAuthority("ADMIN").anyRequest()
-				.fullyAuthenticated().and().formLogin().loginPage("/login")
-				.failureUrl("/login?error").usernameParameter("userId")
-				.permitAll().and().logout().logoutUrl("/logout")
-				.deleteCookies("remember-me").logoutSuccessUrl("/").permitAll()
-				//.and().rememberMe()
-				.and().addFilterAfter(filterSecurityInterceptor(), FilterSecurityInterceptor.class);;
+		http
+			.authorizeRequests().antMatchers("/", "/public/**").permitAll()
+			//.antMatchers("/users/**").hasAuthority("ADMIN").anyRequest().fullyAuthenticated()
+			.and().formLogin().loginPage("/login").failureUrl("/login?error").usernameParameter("userId").permitAll()
+			.and().logout().logoutUrl("/logout")
+			//.deleteCookies("remember-me")
+			.logoutSuccessUrl("/").permitAll()
+			//.and().rememberMe()
+			//.and().authorizeRequests().anyRequest().authenticated()
+			.and().addFilterAfter(filterSecurityInterceptor(), FilterSecurityInterceptor.class)
+			;
 	}
 
 	@Override

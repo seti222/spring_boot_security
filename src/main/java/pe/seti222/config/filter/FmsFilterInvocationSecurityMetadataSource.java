@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -17,6 +19,8 @@ import pe.seti222.service.menu.MenuRoleService;
  * DB 기반의 인증 관리 시스템.
  */
 public class FmsFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
+    
+	private static final Logger LOGGER = LoggerFactory.getLogger(FmsFilterInvocationSecurityMetadataSource.class);
 
 	private final MenuRoleService menuRoleService;
     private final FmsUrlParser parser;
@@ -31,10 +35,12 @@ public class FmsFilterInvocationSecurityMetadataSource implements FilterInvocati
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
-        final HttpServletRequest request = ((FilterInvocation) object).getRequest();
+
+    	final HttpServletRequest request = ((FilterInvocation) object).getRequest();
         final String httpMethod = request.getMethod().toUpperCase();
         final String url = parser.parse(request.getRequestURI());
         final String key = String.format("%s %s", httpMethod, url);
+        LOGGER.debug("getAttributes url = > "+url );
 
         final Permission permission;
         if(permissions.containsKey(key)) {
@@ -45,6 +51,7 @@ public class FmsFilterInvocationSecurityMetadataSource implements FilterInvocati
                 permissions.put(key, permission);
             }
         }
+        
 
         String[] roles;
         if(permission == null) {
@@ -52,6 +59,8 @@ public class FmsFilterInvocationSecurityMetadataSource implements FilterInvocati
         } else {
             roles = new String[] { "ADMIN", permission.getName() };
         }
+        
+        
         return SecurityConfig.createList(roles);
     }
 

@@ -2,6 +2,8 @@ package pe.seti222.config.filter;
 
 import java.util.Collection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -9,8 +11,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.FilterInvocation;
 
-public class DBAccessDecisionVoter implements
-		AccessDecisionVoter<FilterInvocation> {
+public class DBAccessDecisionVoter implements AccessDecisionVoter<FilterInvocation> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DBAccessDecisionVoter.class);
 
 	@Override
 	public boolean supports(ConfigAttribute attribute) {
@@ -32,17 +35,26 @@ public class DBAccessDecisionVoter implements
 		assert attributes != null;
 		SecurityConfig securityConfig = null;
 		boolean containAuthority = false;
-		for (final ConfigAttribute configAttribute : attributes) {
-			if (configAttribute instanceof SecurityConfig) {
-				securityConfig = (SecurityConfig) configAttribute;
-				for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
-					containAuthority = securityConfig.getAttribute().equals(grantedAuthority.getAuthority());
+		boolean isData = true;
+		LOGGER.debug("vote ["+attributes+"]");
+
+		if(attributes.isEmpty()){
+			containAuthority = Boolean.TRUE;
+		} else {
+			for (final ConfigAttribute configAttribute : attributes) {
+		
+				if (configAttribute instanceof SecurityConfig) {
+					securityConfig = (SecurityConfig) configAttribute;
+					for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
+						LOGGER.debug(grantedAuthority.getAuthority() + ""+"");
+						containAuthority = securityConfig.getAttribute().equals(grantedAuthority.getAuthority());
+						if (containAuthority) {
+							break;
+						}
+					}
 					if (containAuthority) {
 						break;
 					}
-				}
-				if (containAuthority) {
-					break;
 				}
 			}
 		}
