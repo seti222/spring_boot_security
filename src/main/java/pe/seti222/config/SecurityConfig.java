@@ -1,29 +1,20 @@
 package pe.seti222.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.access.AccessDecisionVoter;
-import org.springframework.security.access.vote.AffirmativeBased;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import pe.seti222.config.filter.DBAccessDecisionVoter;
-import pe.seti222.config.filter.FmsFilterInvocationSecurityMetadataSource;
-import pe.seti222.service.currentuser.CurrentUserDetailsService;
+import pe.seti222.config.filter.RoleFilter;
 import pe.seti222.service.menu.MenuRoleService;
 
 @Configuration
@@ -44,16 +35,19 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests().antMatchers("/", "/public/**").permitAll()
-			//.antMatchers("/users/**").hasAuthority("ADMIN").anyRequest().fullyAuthenticated()
+			.antMatchers("/users/**").hasAuthority("ADMIN").anyRequest().fullyAuthenticated()
 			.and().formLogin().loginPage("/login").failureUrl("/login?error").usernameParameter("userId").permitAll()
 			.and().logout().logoutUrl("/logout")
 			//.deleteCookies("remember-me")
 			.logoutSuccessUrl("/").permitAll()
 			//.and().rememberMe()
-			//.and().authorizeRequests().anyRequest().authenticated()
-			.and().addFilterAfter(filterSecurityInterceptor(), FilterSecurityInterceptor.class)
+			.and().authorizeRequests().anyRequest().authenticated()
+			//.and().addFilterAfter(filterSecurityInterceptor(), FilterSecurityInterceptor.class)
 			;
+		
+		http.addFilterAfter(new RoleFilter(authenticationManager()), BasicAuthenticationFilter.class);
 	}
+	
 
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -63,13 +57,15 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	/**
 	 * * FMS API 권한 Filter. * @return securityMetadataSource() 가 적용된 데이터. * @throws
 	 * Exception
-	 */
+	 *//*
 	@Bean
 	public FilterSecurityInterceptor filterSecurityInterceptor() throws Exception {
 		FilterSecurityInterceptor filterSecurityInterceptor = new FilterSecurityInterceptor();
 		filterSecurityInterceptor.setSecurityMetadataSource(securityMetadataSource());
 		filterSecurityInterceptor.setAuthenticationManager(authenticationManager());
 		filterSecurityInterceptor.setAccessDecisionManager(affirmativeBased());
+		
+		
 		return filterSecurityInterceptor;
 	}
 
@@ -87,6 +83,6 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public FilterInvocationSecurityMetadataSource securityMetadataSource() {
 		return new FmsFilterInvocationSecurityMetadataSource(menuRoleService);
-	}
+	}*/
 
 }
