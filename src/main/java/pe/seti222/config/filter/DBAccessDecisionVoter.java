@@ -13,7 +13,7 @@ import org.springframework.security.web.FilterInvocation;
 
 public class DBAccessDecisionVoter implements AccessDecisionVoter<FilterInvocation> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DBAccessDecisionVoter.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DBAccessDecisionVoter.class);
 
 	@Override
 	public boolean supports(ConfigAttribute attribute) {
@@ -28,36 +28,34 @@ public class DBAccessDecisionVoter implements AccessDecisionVoter<FilterInvocati
 	}
 
 	@Override
-	public int vote(Authentication authentication, FilterInvocation fi,
-			Collection<ConfigAttribute> attributes) {
+	public int vote(Authentication authentication, FilterInvocation fi, Collection<ConfigAttribute> attributes) {
 		assert authentication != null;
 		assert fi != null;
 		assert attributes != null;
 		SecurityConfig securityConfig = null;
 		boolean containAuthority = false;
 		boolean isData = true;
-		LOGGER.debug("vote ["+attributes+"]");
+		LOGGER.debug("vote [" + attributes + "]");
+		String roleName = "";
+		for (final ConfigAttribute configAttribute : attributes) {
 
-		if(attributes.isEmpty()){
-			containAuthority = Boolean.TRUE;
-		} else {
-			for (final ConfigAttribute configAttribute : attributes) {
-		
-				if (configAttribute instanceof SecurityConfig) {
-					securityConfig = (SecurityConfig) configAttribute;
-					for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
-						LOGGER.debug(grantedAuthority.getAuthority() + ""+"");
-						containAuthority = securityConfig.getAttribute().equals(grantedAuthority.getAuthority());
-						if (containAuthority) {
-							break;
-						}
-					}
+			if (configAttribute instanceof SecurityConfig) {
+				securityConfig = (SecurityConfig) configAttribute;
+				for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
+					LOGGER.debug(grantedAuthority.getAuthority() + "" + "");
+					containAuthority = securityConfig.getAttribute().equals(grantedAuthority.getAuthority());
 					if (containAuthority) {
 						break;
 					}
 				}
+				if (containAuthority) {
+					break;
+				}
 			}
 		}
+		/*if(containAuthority && roleName.equals("ROLE_ANONYMOUS")){
+			return ACCESS_ABSTAIN;
+		}*/
 		return containAuthority ? ACCESS_GRANTED : ACCESS_DENIED;
 	}
 

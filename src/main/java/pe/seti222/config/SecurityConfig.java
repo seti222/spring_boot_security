@@ -45,7 +45,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 			//.and().addFilterAfter(filterSecurityInterceptor(), FilterSecurityInterceptor.class)
 			;
 		
-		http.addFilterAfter(new RoleFilter(authenticationManager()), BasicAuthenticationFilter.class);
+		//http.addFilterBefore(new RoleFilter(authenticationManager()), BasicAuthenticationFilter.class);
 	}
 	
 
@@ -57,8 +57,8 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	/**
 	 * * FMS API 권한 Filter. * @return securityMetadataSource() 가 적용된 데이터. * @throws
 	 * Exception
-	 *//*
-	@Bean
+	 */
+	/*@Bean
 	public FilterSecurityInterceptor filterSecurityInterceptor() throws Exception {
 		FilterSecurityInterceptor filterSecurityInterceptor = new FilterSecurityInterceptor();
 		filterSecurityInterceptor.setSecurityMetadataSource(securityMetadataSource());

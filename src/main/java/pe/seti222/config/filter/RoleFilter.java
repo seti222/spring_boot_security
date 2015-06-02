@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.util.UrlPathHelper;
 
@@ -51,9 +52,20 @@ public class RoleFilter extends GenericFilterBean {
 		HttpServletRequest httpRequest = asHttp(request);
 		HttpServletResponse httpResponse = asHttp(response);
         String resourcePath = new UrlPathHelper().getPathWithinApplication(httpRequest);
-        LOGGER.debug("RoleFilter => "+resourcePath);
-        chain.doFilter(request, response);
+        //authenticationManager.authenticate(authentication)
+        String username = httpRequest.getHeader("X-Auth-Username");
+        String password = httpRequest.getHeader("X-Auth-Password");
+        String token = httpRequest.getHeader("X-Auth-Token");
+        
+        LOGGER.debug("RoleFilter url=> "+resourcePath);
+        LOGGER.debug("RoleFilter username=> "+username);
+        LOGGER.debug("RoleFilter password=> "+password);
+        LOGGER.debug("RoleFilter token=> "+token);
 
+        
+        chain.doFilter(request, response);
+        //SecurityContextHolder.clearContext(); 
+        //httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "test!!!");
 	}
 
 	private HttpServletRequest asHttp(ServletRequest request) {
