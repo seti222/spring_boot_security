@@ -35,14 +35,15 @@ public class DBAccessDecisionVoter implements AccessDecisionVoter<FilterInvocati
 		SecurityConfig securityConfig = null;
 		boolean containAuthority = false;
 		boolean isData = true;
+		LOGGER.debug("===========> ");
 		LOGGER.debug("vote [" + attributes + "]");
-		String roleName = "";
+		String roleName = "ROLE_ANONYMOUS";
 		for (final ConfigAttribute configAttribute : attributes) {
 
 			if (configAttribute instanceof SecurityConfig) {
 				securityConfig = (SecurityConfig) configAttribute;
 				for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
-					LOGGER.debug(grantedAuthority.getAuthority() + "" + "");
+					LOGGER.debug("========================="+securityConfig.getAttribute()+"["+grantedAuthority.getAuthority() + "]");
 					containAuthority = securityConfig.getAttribute().equals(grantedAuthority.getAuthority());
 					if (containAuthority) {
 						break;
@@ -54,8 +55,11 @@ public class DBAccessDecisionVoter implements AccessDecisionVoter<FilterInvocati
 			}
 		}
 		/*if(containAuthority && roleName.equals("ROLE_ANONYMOUS")){
-			return ACCESS_ABSTAIN;
+			LOGGER.debug("===========> ABSTAIN");
+			return ACCESS_GRANTED;
 		}*/
+		LOGGER.debug("===========> containAuthority");
+
 		return containAuthority ? ACCESS_GRANTED : ACCESS_DENIED;
 	}
 

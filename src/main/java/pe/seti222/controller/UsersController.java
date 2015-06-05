@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import pe.seti222.service.user.UserService;
 
+@RequestMapping("/admin")
 @Controller
 public class UsersController {
 

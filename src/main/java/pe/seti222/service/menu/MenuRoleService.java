@@ -11,8 +11,15 @@ public class MenuRoleService {
 		// TODO Auto-generated method stub
 		if(url.indexOf("/login") > -1){
 			return new Permission("ROLE_ANONYMOUS"); 
+		}else if(url.indexOf("/") > -1){
+			return new Permission("ROLE_ANONYMOUS"); 
+		}else if(url.indexOf("/user") > -1){
+			return new Permission("R_ADMIN"); 
+		}else if(url.indexOf("favicon.ico")> -1) {
+			return new Permission("ROLE_ANONYMOUS");
+		}else {
+			return new Permission("ROLE_ANONYMOUS");
 		}
-		return null;
 	}
 
 }

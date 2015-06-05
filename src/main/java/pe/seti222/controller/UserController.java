@@ -1,8 +1,6 @@
 package pe.seti222.controller;
 
 
-import java.util.NoSuchElementException;
-
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -23,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import pe.seti222.domain.UserCreateForm;
 import pe.seti222.domain.validator.UserCreateFormValidator;
 import pe.seti222.service.user.UserService;
-
+@RequestMapping("/admin")
 @Controller
 public class UserController {
 
