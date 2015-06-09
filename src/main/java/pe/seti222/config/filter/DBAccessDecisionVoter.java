@@ -45,7 +45,8 @@ public class DBAccessDecisionVoter implements AccessDecisionVoter<FilterInvocati
 				for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
 					LOGGER.debug("========================="+securityConfig.getAttribute()+"["+grantedAuthority.getAuthority() + "]");
 					containAuthority = securityConfig.getAttribute().equals(grantedAuthority.getAuthority());
-					if (containAuthority) {
+					if (containAuthority || securityConfig.getAttribute().equals("ROLE_ANONYMOUS")) {
+						containAuthority = Boolean.TRUE;
 						break;
 					}
 				}

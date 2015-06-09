@@ -9,7 +9,7 @@
 <nav role="navigation">
     <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/user/create">Create a new user</a></li>
+        <li><a href="/admin/user/create">Create a new user</a></li>
     </ul>
 </nav>
 
@@ -25,7 +25,7 @@
     <tbody>
     <#list users as user>
     <tr>
-        <td><a href="/user/${user.id}">${user.userId}</a></td>
+        <td><a href="/admin/user/${user.id}">${user.userId}</a></td>
         <td>${user.role}</td>
     </tr>
     </#list>
