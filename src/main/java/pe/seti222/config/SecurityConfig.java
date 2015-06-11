@@ -15,7 +15,6 @@ import org.springframework.security.access.vote.AffirmativeBased;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,7 +23,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 
 import pe.seti222.config.filter.DBAccessDecisionVoter;
 import pe.seti222.config.filter.FmsFilterInvocationSecurityMetadataSource;
-import pe.seti222.service.menu.MenuRoleService;
+import pe.seti222.service.menu.MenuInfoService;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -38,7 +37,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserDetailsService userDetailsService;
 
 	@Autowired
-	private MenuRoleService menuRoleService;
+	private MenuInfoService menuInfoService;
 	
 	
 	 
@@ -98,7 +97,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public FilterInvocationSecurityMetadataSource securityMetadataSource() {
-		return new FmsFilterInvocationSecurityMetadataSource(menuRoleService);
+		return new FmsFilterInvocationSecurityMetadataSource(menuInfoService);
 	}
 
 }

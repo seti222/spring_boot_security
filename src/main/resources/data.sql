@@ -21,6 +21,7 @@ CREATE TABLE `menu_info` (
   `menu_url` varchar(100) DEFAULT NULL,
   `pmenu_code` varchar(45) DEFAULT NULL,
   `menu_depth` int(11) DEFAULT NULL,
+  `s_order` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `menu_code_UNIQUE` (`menu_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

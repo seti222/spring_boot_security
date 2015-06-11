@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import pe.seti222.domain.Role;
 import pe.seti222.domain.User;
-import pe.seti222.repository.UserRepository;
+import pe.seti222.repo.user.UserRepository;
 
 
 @Configuration

@@ -8,11 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 
+import pe.seti222.service.menu.MenuInfoService;
 import pe.seti222.service.menu.MenuRoleService;
 
 /**
@@ -22,12 +24,12 @@ public class FmsFilterInvocationSecurityMetadataSource implements FilterInvocati
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FmsFilterInvocationSecurityMetadataSource.class);
 
-	private final MenuRoleService menuRoleService;
+	private final MenuInfoService menuInfoService;
 	private final FmsUrlParser parser;
-	private final Map<String, Permission> permissions;
+	private final Map<String, String[]> permissions;
 
-	public FmsFilterInvocationSecurityMetadataSource(MenuRoleService menuRoleService) {
-		this.menuRoleService = menuRoleService;
+	public FmsFilterInvocationSecurityMetadataSource(MenuInfoService menuRoleService) {
+		this.menuInfoService = menuRoleService;
 		parser = new FmsUrlParser();
 		permissions = new Hashtable<>();
 	}
@@ -38,14 +40,16 @@ public class FmsFilterInvocationSecurityMetadataSource implements FilterInvocati
 		final HttpServletRequest request = ((FilterInvocation) object).getRequest();
 		final String httpMethod = request.getMethod().toUpperCase();
 		final String url = parser.parse(request.getRequestURI());
-		final String key = String.format("%s %s", httpMethod, url);
+		final String key = url;//String.format("%s %s", httpMethod, url);
 		LOGGER.debug("getAttributes url = > " + url);
-		Permission permission = null;
-		if (url.startsWith("/user")) {
+		String[] permission ={"ROLE_ANONYMOUS"} ;
+		//TODO 추후 설정값에서 가져오도록 변경 필요. 
+		if (url.startsWith("/admin")) {
 			if (permissions.containsKey(key)) {
 				permission = permissions.get(key);
 			} else {
-				permission = menuRoleService.findByMethodAndUrl(httpMethod, url);
+				//permission = menuInfoService.findByMethodAndUrl(httpMethod, url);
+				permission = menuInfoService.getRoleByUrl(url);
 				if (permission != null) {
 					permissions.put(key, permission);
 				}
@@ -54,10 +58,7 @@ public class FmsFilterInvocationSecurityMetadataSource implements FilterInvocati
 			if (permissions.containsKey(key)) {
 				permission = permissions.get(key);
 			} else {
-				permission = new Permission("ROLE_ANONYMOUS");
-				if (permission != null) {
-					permissions.put(key, permission);
-				}
+				permissions.put(key, permission);
 			}
 
 		}
@@ -66,7 +67,7 @@ public class FmsFilterInvocationSecurityMetadataSource implements FilterInvocati
 		if (permission == null) {
 			roles = new String[] { "ROLE_ANONYMOUS" };
 		} else {
-			roles = new String[] { permission.getName() };
+			roles = permission;//new String[] { permission.getName() };
 		}
 
 		return SecurityConfig.createList(roles);
