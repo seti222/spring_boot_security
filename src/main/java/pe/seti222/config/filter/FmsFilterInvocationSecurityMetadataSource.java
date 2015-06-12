@@ -8,14 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.web.util.UrlPathHelper;
 
 import pe.seti222.service.menu.MenuInfoService;
-import pe.seti222.service.menu.MenuRoleService;
 
 /**
  * DB 기반의 인증 관리 시스템.
@@ -40,6 +39,12 @@ public class FmsFilterInvocationSecurityMetadataSource implements FilterInvocati
 		final HttpServletRequest request = ((FilterInvocation) object).getRequest();
 		final String httpMethod = request.getMethod().toUpperCase();
 		final String url = parser.parse(request.getRequestURI());
+		
+		
+		//String url = new UrlPathHelper().getPathWithinApplication(request);
+		
+		
+		
 		final String key = url;//String.format("%s %s", httpMethod, url);
 		LOGGER.debug("getAttributes url = > " + url);
 		String[] permission ={"ROLE_ANONYMOUS"} ;
