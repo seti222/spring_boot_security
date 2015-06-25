@@ -12,6 +12,7 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.util.UrlPathHelper;
 
 import pe.seti222.service.menu.MenuInfoService;
@@ -39,12 +40,26 @@ public class FmsFilterInvocationSecurityMetadataSource implements FilterInvocati
 		final HttpServletRequest request = ((FilterInvocation) object).getRequest();
 		final String httpMethod = request.getMethod().toUpperCase();
 		final String url = parser.parse(request.getRequestURI());
-		
+		/*
 		
 		//String url = new UrlPathHelper().getPathWithinApplication(request);
+		UrlPathHelper pathHelper = new UrlPathHelper();
+       
+		LOGGER.debug("getContextPath \t= ["+pathHelper.getContextPath(request)+"]");
+		LOGGER.debug("getLookupPathForRequest \t= ["+pathHelper.getLookupPathForRequest(request)+"]");
+		LOGGER.debug("getOriginatingContextPath \t= ["+pathHelper.getOriginatingContextPath(request)+"]");
+		LOGGER.debug("getOriginatingQueryString \t= ["+pathHelper.getOriginatingQueryString(request)+"]");
+		LOGGER.debug("getOriginatingRequestUri \t= ["+pathHelper.getOriginatingRequestUri(request)+"]");
+		LOGGER.debug("getOriginatingServletPath \t= ["+pathHelper.getOriginatingServletPath(request)+"]");
 		
-		
-		
+		LOGGER.debug("getPathWithinApplication \t= ["+pathHelper.getPathWithinApplication(request)+"]");
+		LOGGER.debug("getPathWithinServletMapping \t= ["+pathHelper.getPathWithinServletMapping(request)+"]");
+		LOGGER.debug("getRequestUri \t= ["+pathHelper.getRequestUri(request)+"]");
+		LOGGER.debug("getServletPath \t= ["+pathHelper.getServletPath(request)+"]");
+		LOGGER.debug("decodeRequestString \t= ["+pathHelper.decodeRequestString(request, request.getRequestURI())+"]");
+
+		LOGGER.debug("dddddd =>"+(String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE));
+		*/
 		final String key = url;//String.format("%s %s", httpMethod, url);
 		LOGGER.debug("getAttributes url = > " + url);
 		String[] permission ={"ROLE_ANONYMOUS"} ;
