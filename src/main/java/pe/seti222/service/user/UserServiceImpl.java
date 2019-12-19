@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import pe.seti222.domain.User;
 import pe.seti222.domain.UserCreateForm;
-import pe.seti222.repository.UserRepository;
+import pe.seti222.repo.user.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {

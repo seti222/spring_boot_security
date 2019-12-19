@@ -49,7 +49,7 @@ public class UserController {
                 .orElseThrow(() -> new NoSuchElementException(String.format("User=%s not found", id))));
     }
 */
-    @PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
+    //@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
     @RequestMapping("/user/{id}")
     public ModelAndView getUserPage(@PathVariable Long id) {
         LOGGER.debug("Getting user page for user={}", id);
@@ -58,14 +58,14 @@ public class UserController {
     
     
     
-    @PreAuthorize("hasAuthority('ADMIN') or hasRole('USER')")
+    //@PreAuthorize("hasAuthority('ADMIN') or hasRole('USER')")
     @RequestMapping(value = "/user/create", method = RequestMethod.GET)
     public ModelAndView getUserCreatePage() {
         LOGGER.debug("Getting user create form");
         return new ModelAndView("user_create", "form", new UserCreateForm());
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') ")
+    //@PreAuthorize("hasAuthority('ADMIN') ")
     @RequestMapping(value = "/user/create", method = RequestMethod.POST)
     public String handleUserCreateForm(@Valid @ModelAttribute("form") UserCreateForm form, BindingResult bindingResult) {
         LOGGER.debug("Processing user create form={}, bindingResult={}", form, bindingResult);
